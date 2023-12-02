@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Map Example
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="map-container">
+  <div id="map"></div>
+
+  <ion-item>
+    <ion-input #searchInput (ionChange)="searchByName(searchInput.value)"></ion-input>
+  </ion-item>
+
+  <!-- Muestra los resultados de la búsqueda -->
+  <ion-list *ngIf="mapService.searchResults | async as results">
+    <ion-item *ngFor="let result of results" (click)="selectSearchResult(result)">
+      {{ result.text }}
+    </ion-item>
+  </ion-list>
+
+  <!-- Muestra información seleccionada -->
+  <ion-card *ngIf="selectedCoordinates">
+    <ion-card-header>
+      <ion-card-title>Información Seleccionada</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Coordenadas: {{ selectedCoordinates | json }}</p>
+      <p>Lugar: {{ selectedPlaceName }}</p>
+      <p>Calle: {{ selectedStreetData?.streetName }}</p>
+      <ion-button (click)="removeMarker()">Limpiar Marcador</ion-button>
+
+      <!-- Botón para enviar datos a la página de inicio -->
+      <ion-button (click)="sendDataToInicioPage(selectedPlaceName, selectedCoordinates, selectedStreetData)">Enviar Datos a Inicio</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botón para navegar a la página de inicio -->
+  <ion-button (click)="navigateToInicioPage()">Go to Inicio Page</ion-button>
+</ion-content>

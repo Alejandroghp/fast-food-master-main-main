@@ -1,0 +1,5 @@
+  insertRestaurant(restaurant: any) {
+    return this.supabase.from('restaurantes').upsert([restaurant]);
+  }
+
+}

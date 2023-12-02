@@ -1,0 +1,35 @@
+<!-- registro.page.html -->
+
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="header">
+    <img src="assets/icon/2.jpg">
+  </div>
+  <form (ngSubmit)="handleSignUp()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input [(ngModel)]="email" name="email" autocomplete type="email" placeholder="Correo Electrónico"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input [(ngModel)]="password" name="password" type="password" placeholder="Contraseña"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="nombre" name="nombre" type="text" placeholder="Nombre"></ion-input>
+      </ion-item>
+      <div class="ion-text-center">
+        <ion-button expand="full" type="submit">Registrarse</ion-button>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

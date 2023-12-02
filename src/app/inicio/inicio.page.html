@@ -1,0 +1,97 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding"><ion-button routerLink="/home">Mapa</ion-button>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Inicio
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div id="header" class="ion-margin-bottom">
+      <ion-icon id="menu-icon" name="grid-outilne"></ion-icon>
+      <div id="location">
+        <ion-icon name="location"></ion-icon>
+        <h4 class="ion-no-margin">{{ receivedPlaceName }}</h4>
+      </div>
+      <div id="avatar">
+        <ion-img src="../../../assets/avatar.png"></ion-img>
+      </div>
+    </div>
+
+    <ion-searchbar placeholder="Buscar restaurantes"></ion-searchbar>
+
+    <div id="banner">
+      <ion-img src="../../../assets/banner.jpg"></ion-img>
+    </div>
+
+    <div class="sub-title">
+      <h3>¿Te estás sintiendo con hambre?</h3>
+      <p>Si te sientes con hambre es momento de pedir algo para comer</p>
+      <div class="middle-section ion-padding">
+        <h3>¿Qué se te antoja hoy?</h3>
+        <div class="content">
+          <ion-row>
+            <ion-col size="4" (click)="navigateToCategory('pizzas')">
+              <img src="/assets/pizza.png" alt="">
+              <p>Pizzas</p>
+            </ion-col>
+            <ion-col size="4" (click)="navigateToCategory('hamburguesas')">
+              <img src="/assets/hamburguesa.jpg" alt="">
+              <p>Hamburguesa</p>
+            </ion-col>
+            <ion-col size="4" (click)="navigateToCategory('ensaladas')">
+              <img src="/assets/ensalada.jpg" alt="">
+              <p>Ensaladas</p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+      <div class="bottom-section ion-margin">
+        <img src="/assets/girl.png" alt="">
+        <div class="content">
+          <h3>Do your own test</h3>
+          <p>Follow the instructions to do your own test</p>
+        </div>
+      </div>
+      <div class="list-title">
+        <h3 class="title">Ofertas Exclusivas</h3>
+        <a href="">Ver Todo</a>
+      </div>
+    </div>
+
+    <!-- Lista de restaurantes -->
+    <ion-list>
+      <ion-item *ngFor="let restaurant of restaurants">
+        <ion-img [src]="restaurant.image"></ion-img>
+        <ion-label>
+          <h2>{{ restaurant.name }}</h2>
+          <p>{{ restaurant.cuisine }}</p>
+          <p>{{ restaurant.deliveryTime }} min - {{ restaurant.deliveryFee | currency: 'USD' }}</p>
+        </ion-label>
+        <ion-button fill="solid" slot="end">Ordenar</ion-button>
+      </ion-item>
+    </ion-list>
+
+    <!-- Otras secciones según tus necesidades -->
+
+  </ion-content>
+</div>

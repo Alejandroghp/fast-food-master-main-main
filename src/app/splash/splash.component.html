@@ -1,0 +1,10 @@
+<ion-app>
+  <!-- Splash Screen -->
+  <div id="splash-screen" *ngIf="showSplash">
+    <img src="../../assets/juna.jpg" alt="Logo">
+    <p>Cargando...</p>
+  </div>
+
+  <!-- Contenido principal -->
+  <ion-router-outlet *ngIf="!showSplash"></ion-router-outlet>
+</ion-app>

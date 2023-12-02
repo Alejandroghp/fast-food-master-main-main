@@ -1,0 +1,52 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>Sign up</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="header">
+    <img src="assets/icon/2.jpg">
+  </div>
+  <ion-list inset="true">
+    <form (submit)="handleLogin($event)">
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input
+          [(ngModel)]="email"
+          name="email"
+          autocomplete="on"
+          type="email"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input
+          [(ngModel)]="password"
+          name="password"
+          type="password"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input
+          [(ngModel)]="nombre"
+          name="nombre"
+          type="text"
+        ></ion-input>
+      </ion-item>
+      <div class="ion-text-center">
+        <ion-button type="submit" fill="clear">Login</ion-button>
+      </div>
+    </form>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,30 @@
+page-home {
+  .map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    #map {
+      width: 100%;
+      height: 60vh; /* Ajusta la altura según tus preferencias */
+      margin-bottom: 16px; /* Espacio entre el mapa y otros elementos */
+    }
+
+    ion-item {
+      width: 80%; /* Ancho del input de búsqueda */
+      margin-bottom: 16px; /* Espacio entre el input y otros elementos */
+    }
+
+    ion-card {
+      width: 80%; /* Ancho de la tarjeta de información seleccionada */
+      text-align: center;
+    }
+
+    ion-button {
+      width: 80%; /* Ancho de los botones */
+      margin-top: 8px; /* Espacio entre los botones */
+    }
+  }
+}

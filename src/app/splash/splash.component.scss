@@ -1,0 +1,14 @@
+#splash-screen {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  
+    img {
+      width: 100px; /* Ajusta el tamaño de tu logo */
+      height: 100px; /* Ajusta el tamaño de tu logo */
+    }
+  }
+  
