@@ -1,16 +1,16 @@
 // home.page.ts
-
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { MapService } from '../map.service';
 import { DataSharingService } from '../services/data-sharing.service';
+import { MapService } from '../map.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
+  searchInputValue: string;
   selectedCoordinates: number[];
   selectedPlaceName: string;
   selectedStreetData: any;
@@ -22,10 +22,8 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Initialize the map
     this.mapService.initializeMap('map');
 
-    // Subscribe to map service events
     this.mapService.coordinatesSelected.subscribe((coordinates: number[]) => {
       this.selectedCoordinates = coordinates;
     });
@@ -34,7 +32,6 @@ export class HomePage implements OnInit {
       this.selectedPlaceName = placeName;
     });
 
-    // Subscribe to shared data changes
     this.dataSharingService.data$.subscribe((data: any) => {
       this.selectedStreetData = data?.selectedStreetData;
     });
@@ -51,7 +48,7 @@ export class HomePage implements OnInit {
     this.mapService.searchPlaceByName(query);
   }
 
-  navigateToInicioPage() {
+  sendDataToInicioPage() {
     // Update shared data
     this.dataSharingService.setData({
       selectedCoordinates: this.selectedCoordinates,

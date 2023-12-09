@@ -1,10 +1,10 @@
 // map.service.ts
 
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { environment } from '../environments/environment';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -15,10 +15,11 @@ export class MapService {
   private map: mapboxgl.Map;
   private marker: mapboxgl.Marker;
   private geocoder: MapboxGeocoder;
-  public coordinatesSelected = new EventEmitter<number[]>();
-  public selectedPlaceName = new EventEmitter<string>();
-  public selectedStreetName = new EventEmitter<string>();
-  public searchResults = new EventEmitter<any[]>();
+  public coordinatesSelected = new BehaviorSubject<number[]>(null);
+  public selectedPlaceName = new BehaviorSubject<string>(null);
+  public selectedStreetName = new BehaviorSubject<string>(null);
+  public searchResults = new BehaviorSubject<any[]>(null);
+  public routeCoordinates$ = new BehaviorSubject<number[][]>(null);
 
   private searchUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/';
 
@@ -54,7 +55,7 @@ export class MapService {
 
   adjustMarker(newCoordinates: number[]) {
     this.addMarker(newCoordinates);
-    this.coordinatesSelected.emit(newCoordinates);
+    this.coordinatesSelected.next(newCoordinates);
   }
 
   removeMarkerAndClearSearch() {
@@ -65,16 +66,15 @@ export class MapService {
   removeMarker() {
     if (this.marker) {
       this.marker.remove();
-      this.coordinatesSelected.emit(null);
-      this.selectedPlaceName.emit(null);
-      this.selectedStreetName.emit(null);
+      this.coordinatesSelected.next(null);
+      this.selectedPlaceName.next(null);
+      this.selectedStreetName.next(null);
     }
   }
 
   private addMarker(coordinates: number[]) {
     this.removeMarker();
 
-    // Asegura que las coordenadas estén dentro de los límites del mapa
     const bounds = this.map.getBounds();
     const newCoordinates = [
       Math.max(bounds.getWest(), Math.min(bounds.getEast(), coordinates[0])),
@@ -110,10 +110,9 @@ export class MapService {
         return of([]);
       })
     ).subscribe((results: any[]) => {
-      this.searchResults.emit(results);
+      this.searchResults.next(results);
 
       if (results.length > 0) {
-        // Si hay resultados, centra el mapa y agrega un marcador
         this.centerMapOnPlace(results[0]);
       }
     });
@@ -133,9 +132,63 @@ export class MapService {
 
     this.removeMarker();
     this.addMarker(clickedCoordinates);
-    this.coordinatesSelected.emit(clickedCoordinates);
-    this.selectedPlaceName.emit(placeName);
-    this.selectedStreetName.emit(streetName);
+    this.coordinatesSelected.next(clickedCoordinates);
+    this.selectedPlaceName.next(placeName);
+    this.selectedStreetName.next(streetName);
     this.clearGeocoderSearch();
+  }
+
+  traceRoute(startCoordinates: number[], endCoordinates: number[]) {
+    const coordinates = [startCoordinates, endCoordinates];
+
+    const routeUrl = `https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates.join(';')}?geometries=geojson&access_token=${mapboxgl.accessToken}`;
+
+    this.http.get(routeUrl).pipe(
+      catchError((error) => {
+        console.error('Error al trazar la ruta:', error);
+        return of(null);
+      })
+    ).subscribe((data: any) => {
+      if (data && data.routes && data.routes.length > 0) {
+        const routeGeometry = data.routes[0].geometry.coordinates;
+        this.routeCoordinates$.next(routeGeometry);
+        this.drawRoute(routeGeometry);
+      } else {
+        this.routeCoordinates$.next(null);
+        console.warn('No se encontraron rutas.');
+      }
+    });
+  }
+
+  private drawRoute(coordinates: number[][]) {
+    if (this.map.getLayer('route')) {
+      this.map.removeLayer('route');
+      this.map.removeSource('route');
+    }
+
+    this.map.addLayer({
+      id: 'route',
+      type: 'line',
+      source: {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'LineString',
+            coordinates: coordinates,
+          },
+        },
+      },
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': '#3887be',
+        'line-width': 5,
+        'line-opacity': 0.75,
+      },
+    });
   }
 }

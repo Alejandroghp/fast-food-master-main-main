@@ -1,3 +1,4 @@
+// inicio.page.ts
 import { Component, OnInit } from '@angular/core';
 import { DataSharingService } from '../services/data-sharing.service';
 import { SupabaseService } from '../supabase.service';
@@ -23,8 +24,8 @@ export class InicioPage implements OnInit {
 
   ngOnInit() {
     // Subscribe to the shared data
-    this.dataSharingService.getData().subscribe((data: any) => {
-      this.receivedPlaceName = data.selectedPlaceName;
+    this.dataSharingService.data$.subscribe((data: any) => {
+      this.receivedPlaceName = data?.selectedPlaceName;
       // ... handle other data you may need
     });
   }
@@ -37,21 +38,17 @@ export class InicioPage implements OnInit {
     // ... existing code
   }
 
-  // Nueva función para ir a la página de inicio
   goToHomePage() {
     // Opción 1: Usando el Router
     this.router.navigate(['/home']);
 
-    // Opción 2: Usando NavController (requiere importar y utilizar NavController)
+    // Opción 2: Usando NavController
     // this.navCtrl.navigateForward('/home');
   }
 
-  // Nueva función para manejar la navegación a categorías
   navigateToCategory(category: string) {
-    // Puedes personalizar esta función para navegar a una página específica de categoría
-    // o realizar la acción que necesites según la categoría seleccionada
     console.log('Categoría seleccionada:', category);
-    // Ejemplo de navegación a una página específica de categoría
-    this.router.navigate([`/categoria/${category}`]);
+    // Puedes personalizar esta función según tus necesidades
+    // this.router.navigate([`/categoria/${category}`]);
   }
 }

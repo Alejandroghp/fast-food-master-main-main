@@ -1,0 +1,15 @@
+// codigoqr.component.scss
+
+.qr-code-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;  // Ajusta la altura según sea necesario
+  
+    img {
+      max-width: 100%;  // La imagen no excederá el ancho del contenedor
+      height: auto;     // Mantén la proporción de la imagen
+    }
+  }
+  
