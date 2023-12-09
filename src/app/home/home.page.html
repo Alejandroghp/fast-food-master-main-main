@@ -9,8 +9,9 @@
 <ion-content class="map-container">
   <div id="map"></div>
 
-  <ion-item>
-    <ion-input #searchInput (ionChange)="searchByName(searchInput.value)"></ion-input>
+  <!-- Espacio antes del campo de búsqueda -->
+  <ion-item class="search-item">
+    <ion-input [(ngModel)]="searchInputValue" (ngModelChange)="searchByName(searchInputValue)"></ion-input>
   </ion-item>
 
   <!-- Muestra los resultados de la búsqueda -->
@@ -20,7 +21,7 @@
     </ion-item>
   </ion-list>
 
-  <!-- Muestra información seleccionada -->
+  <!-- Espacio después de la lista de resultados -->
   <ion-card *ngIf="selectedCoordinates">
     <ion-card-header>
       <ion-card-title>Información Seleccionada</ion-card-title>
@@ -29,13 +30,21 @@
       <p>Coordenadas: {{ selectedCoordinates | json }}</p>
       <p>Lugar: {{ selectedPlaceName }}</p>
       <p>Calle: {{ selectedStreetData?.streetName }}</p>
-      <ion-button (click)="removeMarker()">Limpiar Marcador</ion-button>
+      
+      <!-- Espacio antes del botón "Limpiar Marcador" -->
+      <ion-button (click)="removeMarker()" class="button-margin">
+        Limpiar Marcador
+      </ion-button>
 
       <!-- Botón para enviar datos a la página de inicio -->
-      <ion-button (click)="sendDataToInicioPage(selectedPlaceName, selectedCoordinates, selectedStreetData)">Enviar Datos a Inicio</ion-button>
+      <ion-button (click)="sendDataToInicioPage(selectedPlaceName, selectedCoordinates, selectedStreetData)">
+        Enviar Datos a Inicio
+      </ion-button>
     </ion-card-content>
   </ion-card>
 
-  <!-- Botón para navegar a la página de inicio -->
-  <ion-button (click)="navigateToInicioPage()">Go to Inicio Page</ion-button>
+  <!-- Espacio después del bloque de información seleccionada -->
+  <ion-button (click)="navigateToInicioPage()" expand="full" fill="outline" color="primary" class="button-margin">
+    Go to Inicio Page
+  </ion-button>
 </ion-content>

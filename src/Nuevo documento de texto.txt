@@ -1,41 +1,40 @@
-<!-- Menú lateral -->
-<ion-menu contentId="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu Content</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="ion-padding">
-    <!-- Contenido del menú -->
-    <ion-list>
-      <!-- Agrega un botón con routerLink a la página home -->
-      <ion-item [routerLink]="['/home']">
-        Mapa
-      </ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
+<ion-content [fullscreen]="true">
 
-<!-- Contenido principal -->
-<div class="ion-page" id="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <!-- Botón para abrir el menú lateral -->
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content class="ion-padding">
-    <div id="location">
-      <ion-icon name="location"></ion-icon>
-      <h4 class="ion-no-margin">{{ receivedPlaceName }}</h4>
-    </div>
+  <!-- Menú lateral -->
+  <ion-menu contentId="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu Content</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <!-- Contenido del menú -->
+      <ion-list>
+        <ion-item (click)="closeMenu()">Item 1</ion-item>
+        <ion-item (click)="closeMenu()">Item 2</ion-item>
+        <!-- Agrega más elementos de menú según sea necesario -->
+      </ion-list>
+    </ion-content>
+  </ion-menu>
 
+  <!-- Barra de encabezado sin borde -->
+  <ion-header class="ion-no-border">
+    <ion-item lines="none" button (click)="openMenu()">
+      <ion-avatar slot="end">
+        <!-- Utiliza la ruta correcta de la imagen "avatar.png" dentro de la carpeta "assets" -->
+        <img src="assets/avatar.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>Menu del Restaurante</h2>
+        <p>FastFood Company</p>
+      </ion-label>
+    </ion-item>
+  </ion-header>
+
+  <!-- Contenido principal -->
   <ion-content class="ion-padding">
     <div class="ion-padding wrapper">
+
   <ion-grid class="ion-no-padding">
     <ion-row class="ion-align-items-baseline">
       <ion-col size="6">

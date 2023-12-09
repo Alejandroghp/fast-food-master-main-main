@@ -1,30 +1,55 @@
-page-home {
-  .map-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+// app.scss
 
-    #map {
-      width: 100%;
-      height: 60vh; /* Ajusta la altura según tus preferencias */
-      margin-bottom: 16px; /* Espacio entre el mapa y otros elementos */
-    }
+// Estilo global
+ion-app {
+  background-color: #f4f4f4;
+}
 
-    ion-item {
-      width: 80%; /* Ancho del input de búsqueda */
-      margin-bottom: 16px; /* Espacio entre el input y otros elementos */
-    }
-
-    ion-card {
-      width: 80%; /* Ancho de la tarjeta de información seleccionada */
-      text-align: center;
-    }
-
-    ion-button {
-      width: 80%; /* Ancho de los botones */
-      margin-top: 8px; /* Espacio entre los botones */
-    }
+// Estilo del encabezado
+ion-header {
+  ion-toolbar {
+    --background: #3880ff;
+    color: white;
   }
+}
+
+// Estilo del contenido principal
+ion-content {
+  --background: #ffffff;
+  ion-item {
+    margin-bottom: 10px;
+  }
+
+  .map-container {
+    // Ajusta el espacio entre el mapa y otros elementos según sea necesario
+    margin-bottom: 20px;
+  }
+
+  .search-item {
+    // Ajusta el espacio antes del campo de búsqueda
+    margin-top: 20px;
+  }
+
+  .button-margin {
+    // Ajusta el espacio antes/después de los botones según sea necesario
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .card-margin {
+    // Ajusta el espacio antes/después de la tarjeta según sea necesario
+    margin-bottom: 20px;
+  }
+}
+
+// Estilo de los botones
+ion-button {
+  --background: #3880ff;
+  --border-radius: 8px;
+  color: white;
+}
+
+// Estilo de la tarjeta
+ion-card {
+  --background: #ffffff;
 }
